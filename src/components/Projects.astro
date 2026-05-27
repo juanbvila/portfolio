@@ -126,6 +126,26 @@ const sections: { title: string; subtitle: string; items: Project[] }[] = [
         if (event.target === dlg) dlg.close();
       });
     });
+
+    document.querySelectorAll<HTMLButtonElement>("[data-copy]").forEach((btn) => {
+      btn.addEventListener("click", async (event) => {
+        event.stopPropagation();
+        const value = btn.dataset.copy;
+        if (!value) return;
+        try {
+          await navigator.clipboard.writeText(value);
+          const originalTitle = btn.title;
+          btn.title = "Copied!";
+          btn.classList.add("text-[color:var(--color-accent)]");
+          setTimeout(() => {
+            btn.title = originalTitle;
+            btn.classList.remove("text-[color:var(--color-accent)]");
+          }, 1200);
+        } catch {
+          /* clipboard blocked — ignore */
+        }
+      });
+    });
   }
 
   setup();

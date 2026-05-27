@@ -1,8 +1,16 @@
+import type { ImageMetadata } from "astro";
+
 export type ProjectMedia =
   | { type: "pdf"; src: string }
-  | { type: "image"; src: string; alt?: string };
+  | { type: "image"; src: ImageMetadata | string; alt?: string };
 
 export type ProjectCategory = "work" | "personal";
+
+export type DemoCredentials = {
+  label?: string;
+  email: string;
+  password: string;
+};
 
 export type Project = {
   slug: string;
@@ -15,6 +23,7 @@ export type Project = {
   impact?: string;
   media?: ProjectMedia;
   href?: { label: string; url: string };
+  demoCredentials?: DemoCredentials;
 };
 
 export const projects: Project[] = [
@@ -90,6 +99,11 @@ export const projects: Project[] = [
     href: {
       label: "View live app",
       url: "https://escueladominicalapp.web.app/app",
+    },
+    demoCredentials: {
+      label: "Sign in with the visitor account",
+      email: "visitas@pandevida.com",
+      password: "Pandevida2026",
     },
   },
 ];
