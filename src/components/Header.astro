@@ -1,0 +1,41 @@
+---
+import { site } from "../data/site";
+
+const navItems = [
+  { href: "#about", label: "About" },
+  { href: "#skills", label: "Skills" },
+  { href: "#projects", label: "Projects" },
+  { href: "#contact", label: "Contact" },
+];
+---
+
+<header
+  class="sticky top-0 z-40 border-b border-[color:var(--color-border)] bg-[color:var(--color-surface)]/70 backdrop-blur"
+>
+  <div class="mx-auto flex max-w-5xl items-center justify-between px-6 py-4">
+    <a
+      href="#top"
+      class="font-semibold tracking-tight text-[color:var(--color-ink)] hover:text-[color:var(--color-accent)]"
+    >
+      {site.name}
+    </a>
+    <nav class="hidden gap-7 text-sm text-[color:var(--color-ink-soft)] sm:flex">
+      {
+        navItems.map((item) => (
+          <a
+            href={item.href}
+            class="transition-colors hover:text-[color:var(--color-accent)]"
+          >
+            {item.label}
+          </a>
+        ))
+      }
+      <a
+        href={site.resume}
+        class="font-medium text-[color:var(--color-accent)] hover:underline"
+      >
+        Resume
+      </a>
+    </nav>
+  </div>
+</header>

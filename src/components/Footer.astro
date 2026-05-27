@@ -1,0 +1,21 @@
+---
+import { site } from "../data/site";
+
+const year = new Date().getFullYear();
+---
+
+<footer>
+  <div
+    class="mx-auto flex max-w-5xl flex-col items-start justify-between gap-3 px-6 py-8 text-sm text-[color:var(--color-ink-soft)] sm:flex-row sm:items-center"
+  >
+    <span>© {year} {site.name}</span>
+    <span>
+      Built with <a
+        href="https://astro.build"
+        class="underline-offset-4 hover:underline"
+        target="_blank"
+        rel="noopener noreferrer">Astro</a
+      > & Tailwind.
+    </span>
+  </div>
+</footer>

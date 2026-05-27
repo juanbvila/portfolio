@@ -1,0 +1,43 @@
+---
+import { site } from "../data/site";
+---
+
+<section id="contact" class="border-b border-[color:var(--color-border)]">
+  <div class="mx-auto max-w-5xl px-6 py-20 sm:py-24">
+    <h2 class="text-2xl font-semibold tracking-tight sm:text-3xl">Get in touch</h2>
+    <p class="mt-3 max-w-2xl text-[color:var(--color-ink-soft)]">
+      Open to BI / Odoo work, freelance dashboard builds, and conversations
+      about turning data into business decisions.
+    </p>
+    <div class="mt-10 flex flex-wrap gap-4">
+      <a
+        href={`mailto:${site.email}`}
+        class="inline-flex items-center rounded-md bg-[color:var(--color-accent)] px-5 py-2.5 text-sm font-medium text-white shadow-sm transition-opacity hover:opacity-90"
+      >
+        Email me
+      </a>
+      <a
+        href={site.links.linkedin}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="inline-flex items-center rounded-md border border-[color:var(--color-border)] bg-[color:var(--color-surface-soft)] px-5 py-2.5 text-sm font-medium text-[color:var(--color-ink)] transition-colors hover:border-[color:var(--color-accent)] hover:text-[color:var(--color-accent)]"
+      >
+        LinkedIn
+      </a>
+      <a
+        href={site.links.github}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="inline-flex items-center rounded-md border border-[color:var(--color-border)] bg-[color:var(--color-surface-soft)] px-5 py-2.5 text-sm font-medium text-[color:var(--color-ink)] transition-colors hover:border-[color:var(--color-accent)] hover:text-[color:var(--color-accent)]"
+      >
+        GitHub
+      </a>
+      <a
+        href={site.resume}
+        class="inline-flex items-center rounded-md border border-[color:var(--color-border)] bg-[color:var(--color-surface-soft)] px-5 py-2.5 text-sm font-medium text-[color:var(--color-ink)] transition-colors hover:border-[color:var(--color-accent)] hover:text-[color:var(--color-accent)]"
+      >
+        Download resume
+      </a>
+    </div>
+  </div>
+</section>

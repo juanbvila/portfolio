@@ -1,0 +1,71 @@
+@import "tailwindcss";
+
+@theme {
+  --color-ink: #e6edf7;
+  --color-ink-soft: #94a3b8;
+  --color-accent: #60a5fa;
+  --color-accent-soft: #3b82f6;
+  --color-surface: #0b1120;
+  --color-surface-soft: #111a30;
+  --color-border: #1e293b;
+  --color-chart-1: #60a5fa;
+  --color-chart-2: #a78bfa;
+  --color-chart-3: #34d399;
+  --color-chart-4: #fbbf24;
+  --color-chart-5: #fb7185;
+  --color-chart-6: #22d3ee;
+  --font-sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+  color-scheme: dark;
+}
+
+body {
+  font-family: var(--font-sans);
+  color: var(--color-ink);
+  background:
+    radial-gradient(
+      ellipse 60% 40% at 50% -10%,
+      rgba(96, 165, 250, 0.18),
+      transparent 60%
+    ),
+    var(--color-surface);
+  background-attachment: fixed;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+::selection {
+  background: var(--color-accent-soft);
+  color: white;
+}
+
+@keyframes bar-rise {
+  0% {
+    transform: scaleY(0.15);
+    opacity: 0.4;
+  }
+  100% {
+    transform: scaleY(1);
+    opacity: 1;
+  }
+}
+
+@keyframes bar-pulse {
+  0%,
+  100% {
+    transform: scaleY(var(--bar-height, 1));
+  }
+  50% {
+    transform: scaleY(calc(var(--bar-height, 1) * 0.78));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .chart-bar {
+    animation: none !important;
+  }
+}

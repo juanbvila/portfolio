@@ -1,0 +1,76 @@
+---
+const bars = [
+  { height: 0.45, color: "var(--color-chart-1)", delay: 0 },
+  { height: 0.72, color: "var(--color-chart-2)", delay: 0.08 },
+  { height: 0.38, color: "var(--color-chart-3)", delay: 0.16 },
+  { height: 0.86, color: "var(--color-chart-4)", delay: 0.24 },
+  { height: 0.62, color: "var(--color-chart-5)", delay: 0.32 },
+  { height: 0.95, color: "var(--color-chart-6)", delay: 0.4 },
+  { height: 0.55, color: "var(--color-chart-1)", delay: 0.48 },
+];
+
+const sparkPoints = "0,32 18,28 36,30 54,22 72,24 90,14 108,18 126,8 144,12";
+---
+
+<div
+  class="relative w-full max-w-md rounded-xl border border-[color:var(--color-border)] bg-[color:var(--color-surface-soft)]/60 p-5 shadow-[0_10px_40px_-10px_rgba(0,0,0,0.5)] backdrop-blur"
+>
+  <div class="flex items-center justify-between">
+    <div>
+      <p class="text-xs font-semibold uppercase tracking-widest text-[color:var(--color-ink-soft)]">
+        Sales by Hour
+      </p>
+      <p class="mt-1 text-2xl font-bold tracking-tight">$ 142.8K</p>
+    </div>
+    <div class="flex items-center gap-1.5 rounded-full bg-[color:var(--color-chart-3)]/15 px-2.5 py-1 text-xs font-medium text-[color:var(--color-chart-3)]">
+      <svg viewBox="0 0 12 12" class="h-3 w-3 fill-current">
+        <path d="M6 1l5 6H7v4H5V7H1z" />
+      </svg>
+      +18.4%
+    </div>
+  </div>
+
+  <div class="mt-6 flex h-32 items-end gap-2">
+    {
+      bars.map((bar) => (
+        <div
+          class="chart-bar flex-1 origin-bottom rounded-t-sm"
+          style={`background: ${bar.color}; height: ${bar.height * 100}%; animation: bar-rise 0.6s cubic-bezier(0.22, 1, 0.36, 1) ${bar.delay}s both, bar-pulse 4s ease-in-out ${1 + bar.delay}s infinite; --bar-height: 1;`}
+        />
+      ))
+    }
+  </div>
+
+  <div class="mt-2 flex justify-between text-[10px] uppercase tracking-wider text-[color:var(--color-ink-soft)]">
+    <span>8a</span><span>10a</span><span>12p</span><span>2p</span><span>4p</span
+    ><span>6p</span><span>8p</span>
+  </div>
+
+  <div class="mt-5 border-t border-[color:var(--color-border)] pt-4">
+    <div class="flex items-center justify-between">
+      <p class="text-xs font-semibold uppercase tracking-widest text-[color:var(--color-ink-soft)]">
+        Trend · 7 days
+      </p>
+      <p class="text-xs font-medium text-[color:var(--color-chart-3)]">↑ Trending up</p>
+    </div>
+    <svg viewBox="0 0 144 40" class="mt-2 h-10 w-full" preserveAspectRatio="none">
+      <defs>
+        <linearGradient id="spark-fill" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="var(--color-chart-1)" stop-opacity="0.4"></stop>
+          <stop offset="100%" stop-color="var(--color-chart-1)" stop-opacity="0"></stop>
+        </linearGradient>
+      </defs>
+      <polyline
+        points={`${sparkPoints} 144,40 0,40`}
+        fill="url(#spark-fill)"
+        stroke="none"></polyline>
+      <polyline
+        points={sparkPoints}
+        fill="none"
+        stroke="var(--color-chart-1)"
+        stroke-width="1.5"
+        stroke-linecap="round"
+        stroke-linejoin="round"></polyline>
+    </svg>
+  </div>
+</div>

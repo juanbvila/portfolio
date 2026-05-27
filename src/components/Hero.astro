@@ -1,0 +1,47 @@
+---
+import { site } from "../data/site";
+import DashboardPreview from "./DashboardPreview.astro";
+---
+
+<section id="top" class="border-b border-[color:var(--color-border)]">
+  <div class="mx-auto grid max-w-5xl gap-12 px-6 pt-20 pb-24 sm:pt-28 sm:pb-32 lg:grid-cols-[1.2fr_1fr] lg:items-center">
+    <div>
+      <p class="text-sm font-medium uppercase tracking-widest text-[color:var(--color-accent)]">
+        {site.role}
+      </p>
+      <h1
+        class="mt-4 text-4xl font-bold tracking-tight text-[color:var(--color-ink)] sm:text-6xl"
+      >
+        Hi, I'm {site.name.split(" ")[0]}.
+      </h1>
+      <p
+        class="mt-6 max-w-2xl text-lg leading-relaxed text-[color:var(--color-ink-soft)] sm:text-xl"
+      >
+        {site.tagline}
+      </p>
+      <div class="mt-10 flex flex-wrap gap-3">
+        <a
+          href="#projects"
+          class="inline-flex items-center rounded-md bg-[color:var(--color-accent)] px-5 py-2.5 text-sm font-medium text-white shadow-sm transition-opacity hover:opacity-90"
+        >
+          View projects
+        </a>
+        <a
+          href={site.resume}
+          class="inline-flex items-center rounded-md border border-[color:var(--color-border)] bg-[color:var(--color-surface-soft)] px-5 py-2.5 text-sm font-medium text-[color:var(--color-ink)] transition-colors hover:border-[color:var(--color-accent)] hover:text-[color:var(--color-accent)]"
+        >
+          Download resume
+        </a>
+        <a
+          href={`mailto:${site.email}`}
+          class="inline-flex items-center px-2 py-2.5 text-sm font-medium text-[color:var(--color-ink-soft)] transition-colors hover:text-[color:var(--color-accent)]"
+        >
+          {site.email} →
+        </a>
+      </div>
+    </div>
+    <div class="hidden justify-center lg:flex">
+      <DashboardPreview />
+    </div>
+  </div>
+</section>

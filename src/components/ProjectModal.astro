@@ -1,0 +1,94 @@
+---
+import { Icon } from "astro-icon/components";
+import type { Project } from "../data/projects";
+
+interface Props {
+  project: Project;
+}
+
+const { project } = Astro.props;
+---
+
+<dialog
+  id={`dialog-${project.slug}`}
+  class="m-auto max-h-[90vh] w-[min(720px,92vw)] rounded-xl border border-[color:var(--color-border)] bg-[color:var(--color-surface-soft)] p-0 text-[color:var(--color-ink)] backdrop:bg-black/70 backdrop:backdrop-blur-sm"
+>
+  <div class="flex max-h-[90vh] flex-col">
+    <div
+      class="flex items-start justify-between gap-4 border-b border-[color:var(--color-border)] px-6 py-4"
+    >
+      <div>
+        <h3 class="text-lg font-semibold">{project.title}</h3>
+        <ul class="mt-2 flex flex-wrap gap-2">
+          {
+            project.stack.map((tech) => (
+              <li class="rounded-full border border-[color:var(--color-border)] bg-[color:var(--color-surface)] px-2.5 py-0.5 text-xs font-medium text-[color:var(--color-ink-soft)]">
+                {tech}
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+      <button
+        type="button"
+        data-dialog-close
+        aria-label="Close"
+        class="rounded-md p-2 text-[color:var(--color-ink-soft)] transition-colors hover:bg-[color:var(--color-surface)] hover:text-[color:var(--color-ink)]"
+      >
+        <Icon name="lucide:x" class="h-5 w-5" />
+      </button>
+    </div>
+
+    <div class="overflow-y-auto px-6 py-5">
+      <p class="leading-relaxed text-[color:var(--color-ink-soft)]">
+        {project.description}
+      </p>
+      {
+        project.impact && (
+          <p class="mt-4 border-l-2 border-[color:var(--color-accent)] pl-3 text-sm text-[color:var(--color-ink)]">
+            <span class="font-semibold">Impact:</span> {project.impact}
+          </p>
+        )
+      }
+
+      {
+        project.media?.type === "pdf" && (
+          <div class="mt-5 overflow-hidden rounded-lg border border-[color:var(--color-border)] bg-black">
+            <iframe
+              src={project.media.src}
+              title={`${project.title} PDF`}
+              class="h-[60vh] w-full"
+            />
+          </div>
+        )
+      }
+      {
+        project.media?.type === "image" && (
+          <div class="mt-5 overflow-hidden rounded-lg border border-[color:var(--color-border)]">
+            <img
+              src={project.media.src}
+              alt={project.media.alt ?? project.title}
+              class="h-auto w-full"
+            />
+          </div>
+        )
+      }
+    </div>
+
+    {
+      project.href && (
+        <div class="flex items-center justify-end gap-3 border-t border-[color:var(--color-border)] px-6 py-4">
+          <a
+            href={project.href.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="inline-flex items-center gap-2 rounded-md bg-[color:var(--color-accent)] px-4 py-2 text-sm font-medium text-white shadow-sm transition-opacity hover:opacity-90"
+          >
+            <Icon name="lucide:external-link" class="h-4 w-4" />
+            {project.href.label}
+          </a>
+        </div>
+      )
+    }
+  </div>
+</dialog>
