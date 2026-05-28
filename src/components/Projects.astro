@@ -1,4 +1,5 @@
 ---
+import { Image } from "astro:assets";
 import { Icon } from "astro-icon/components";
 import { projects, type Project } from "../data/projects";
 import ProjectModal from "./ProjectModal.astro";
@@ -47,12 +48,51 @@ const sections: { title: string; subtitle: string; items: Project[] }[] = [
               <button
                 type="button"
                 data-dialog-open={`dialog-${project.slug}`}
-                class="group relative flex flex-col overflow-hidden rounded-lg border border-[color:var(--color-border)] bg-[color:var(--color-surface)] p-6 pt-7 text-left transition-colors hover:border-[color:var(--color-accent)] focus:border-[color:var(--color-accent)] focus:outline-none focus:ring-2 focus:ring-[color:var(--color-accent)]/40"
+                class="group relative flex flex-col overflow-hidden rounded-lg border border-[color:var(--color-border)] bg-[color:var(--color-surface)] text-left transition-colors hover:border-[color:var(--color-accent)] focus:border-[color:var(--color-accent)] focus:outline-none focus:ring-2 focus:ring-[color:var(--color-accent)]/40"
               >
                 <span
-                  class="absolute inset-x-0 top-0 h-1"
+                  class="absolute inset-x-0 top-0 z-10 h-1"
                   style={`background: ${project.accent};`}
                 />
+                {project.thumbnail && (
+                  <div class="relative aspect-[16/9] w-full overflow-hidden border-b border-[color:var(--color-border)] bg-black">
+                    {typeof project.thumbnail.src === "object" ? (
+                      <Image
+                        src={project.thumbnail.src as ImageMetadata}
+                        alt={project.thumbnail.alt ?? project.title}
+                        widths={[400, 600, 800]}
+                        sizes="(min-width: 768px) 400px, 92vw"
+                        quality={82}
+                        class="h-full w-full object-cover transition-transform duration-300 group-hover:scale-[1.02]"
+                      />
+                    ) : (
+                      <img
+                        src={project.thumbnail.src as string}
+                        alt={project.thumbnail.alt ?? project.title}
+                        class="h-full w-full object-cover transition-transform duration-300 group-hover:scale-[1.02]"
+                      />
+                    )}
+                    {project.media?.type === "embed" && (
+                      <span
+                        class="absolute bottom-3 right-3 inline-flex items-center gap-1.5 rounded-full border px-2.5 py-1 text-[11px] font-medium shadow-sm backdrop-blur-sm"
+                        style={`background: color-mix(in srgb, ${project.accent} 22%, rgba(0,0,0,0.55)); border-color: color-mix(in srgb, ${project.accent} 55%, transparent); color: white;`}
+                      >
+                        <span class="relative flex h-1.5 w-1.5">
+                          <span
+                            class="absolute inline-flex h-full w-full animate-ping rounded-full opacity-75"
+                            style={`background: ${project.accent};`}
+                          />
+                          <span
+                            class="relative inline-flex h-1.5 w-1.5 rounded-full"
+                            style={`background: ${project.accent};`}
+                          />
+                        </span>
+                        Click to see it live
+                      </span>
+                    )}
+                  </div>
+                )}
+                <div class={`flex flex-1 flex-col p-6 ${project.thumbnail ? "" : "pt-7"}`}>
                 <div class="flex items-start justify-between gap-3">
                   <div class="flex items-start gap-3">
                     <span
@@ -96,6 +136,7 @@ const sections: { title: string; subtitle: string; items: Project[] }[] = [
                     <span class="font-semibold">Impact:</span> {project.impact}
                   </p>
                 )}
+                </div>
               </button>
             ))}
           </div>

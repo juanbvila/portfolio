@@ -1,4 +1,5 @@
 import type { ImageMetadata } from "astro";
+import hourlySalesThumb from "../assets/hourly-sales-thumb.png";
 
 export type ProjectMedia =
   | { type: "pdf"; src: string }
@@ -13,6 +14,11 @@ export type DemoCredentials = {
   password: string;
 };
 
+export type ProjectThumbnail = {
+  src: ImageMetadata | string;
+  alt?: string;
+};
+
 export type Project = {
   slug: string;
   title: string;
@@ -22,6 +28,7 @@ export type Project = {
   stack: string[];
   description: string;
   impact?: string;
+  thumbnail?: ProjectThumbnail;
   media?: ProjectMedia;
   href?: { label: string; url: string };
   demoCredentials?: DemoCredentials;
@@ -39,6 +46,10 @@ export const projects: Project[] = [
       "Built a dashboard for company directors that breaks down sales by hour and day of the week, surfacing patterns that were previously invisible in static reports.",
     impact:
       "Directors used the insight to cut Saturday hours during the lowest-activity windows, reducing operating cost without affecting revenue.",
+    thumbnail: {
+      src: hourlySalesThumb,
+      alt: "Hourly & Daily Sales dashboard preview",
+    },
     media: {
       type: "embed",
       src: "https://app.powerbi.com/view?r=eyJrIjoiOWJkN2UzOTYtNjYyNi00NWI3LTlmNzctMzU1ODE2OTBhNDI4IiwidCI6IjVlMmVmZDkwLTZjMjgtNGQyMC05ZmYxLTNlZDlmZGZhOWVjYyJ9",
