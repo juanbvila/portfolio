@@ -2,7 +2,8 @@ import type { ImageMetadata } from "astro";
 
 export type ProjectMedia =
   | { type: "pdf"; src: string }
-  | { type: "image"; src: ImageMetadata | string; alt?: string };
+  | { type: "image"; src: ImageMetadata | string; alt?: string }
+  | { type: "embed"; src: string; title?: string; aspectRatio?: string };
 
 export type ProjectCategory = "work" | "personal";
 
@@ -38,6 +39,12 @@ export const projects: Project[] = [
       "Built a dashboard for company directors that breaks down sales by hour and day of the week, surfacing patterns that were previously invisible in static reports.",
     impact:
       "Directors used the insight to cut Saturday hours during the lowest-activity windows, reducing operating cost without affecting revenue.",
+    media: {
+      type: "embed",
+      src: "https://app.powerbi.com/view?r=eyJrIjoiOWJkN2UzOTYtNjYyNi00NWI3LTlmNzctMzU1ODE2OTBhNDI4IiwidCI6IjVlMmVmZDkwLTZjMjgtNGQyMC05ZmYxLTNlZDlmZGZhOWVjYyJ9",
+      title: "Hourly & Daily Sales — demo dashboard",
+      aspectRatio: "1024 / 612",
+    },
   },
   {
     slug: "sales-projection",
