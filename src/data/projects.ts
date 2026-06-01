@@ -1,5 +1,6 @@
 import type { ImageMetadata } from "astro";
 import hourlySalesThumb from "../assets/hourly-sales-thumb.png";
+import salesProjectionThumb from "../assets/sales-projection-thumb.png";
 
 export type ProjectMedia =
   | { type: "pdf"; src: string }
@@ -68,6 +69,16 @@ export const projects: Project[] = [
       "Connected Power BI directly to the company CRM and modelled a projection of incoming sales based on pipeline stage, deal size, and historical conversion rates.",
     impact:
       "Gave sales leadership a forward-looking view instead of relying only on closed-revenue lag metrics.",
+    thumbnail: {
+      src: salesProjectionThumb,
+      alt: "Sales Projection dashboard preview",
+    },
+    media: {
+      type: "embed",
+      src: "https://app.powerbi.com/view?r=eyJrIjoiM2Y0ZWE3NTMtMWI5OS00MzZmLWI1N2EtOGM2NjQzOTZiNjVhIiwidCI6IjVlMmVmZDkwLTZjMjgtNGQyMC05ZmYxLTNlZDlmZGZhOWVjYyJ9",
+      title: "Sales Projection — demo dashboard",
+      aspectRatio: "1024 / 612",
+    },
   },
   {
     slug: "sales-vs-visits",
