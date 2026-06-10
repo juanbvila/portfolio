@@ -30,5 +30,30 @@ const {
   <body class="min-h-screen bg-[color:var(--color-surface)] text-[color:var(--color-ink)]">
     <slot />
     <Analytics />
+    <script>
+      function setupReveal() {
+        const els = document.querySelectorAll<HTMLElement>("[data-reveal]");
+        if (!els.length) return;
+        if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+          els.forEach((el) => el.classList.add("revealed"));
+          return;
+        }
+        const observer = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                entry.target.classList.add("revealed");
+                observer.unobserve(entry.target);
+              }
+            });
+          },
+          { threshold: 0.12, rootMargin: "0px 0px -40px 0px" },
+        );
+        els.forEach((el) => observer.observe(el));
+      }
+
+      setupReveal();
+      document.addEventListener("astro:page-load", setupReveal);
+    </script>
   </body>
 </html>

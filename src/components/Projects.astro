@@ -27,8 +27,11 @@ const sections: { title: string; subtitle: string; items: Project[] }[] = [
   class="border-b border-[color:var(--color-border)] bg-[color:var(--color-surface-soft)]"
 >
   <div class="mx-auto max-w-5xl px-6 py-20 sm:py-24">
-    <h2 class="text-2xl font-semibold tracking-tight sm:text-3xl">Projects</h2>
-    <p class="mt-3 max-w-2xl text-[color:var(--color-ink-soft)]">
+    <p class="eyebrow" data-reveal>03 — Projects</p>
+    <h2 class="mt-3 text-2xl font-semibold tracking-tight sm:text-3xl" data-reveal>
+      Selected work
+    </h2>
+    <p class="mt-3 max-w-2xl text-[color:var(--color-ink-soft)]" data-reveal>
       Click any card for details — full description, stack, and impact.
     </p>
 
@@ -44,11 +47,13 @@ const sections: { title: string; subtitle: string; items: Project[] }[] = [
             </p>
           </div>
           <div class="mt-6 grid gap-6 sm:grid-cols-2">
-            {section.items.map((project) => (
+            {section.items.map((project, projectIdx) => (
               <button
                 type="button"
                 data-dialog-open={`dialog-${project.slug}`}
-                class="group relative flex flex-col overflow-hidden rounded-lg border border-[color:var(--color-border)] bg-[color:var(--color-surface)] text-left transition-colors hover:border-[color:var(--color-accent)] focus:border-[color:var(--color-accent)] focus:outline-none focus:ring-2 focus:ring-[color:var(--color-accent)]/40"
+                data-reveal
+                class="card-lift group relative flex flex-col overflow-hidden rounded-lg border border-[color:var(--color-border)] bg-[color:var(--color-surface)] text-left focus:outline-none focus:ring-2 focus:ring-[color:var(--color-accent)]/40"
+                style={`--card-accent: ${project.accent}; --reveal-delay: ${(projectIdx % 2) * 0.08}s;`}
               >
                 <span
                   class="absolute inset-x-0 top-0 z-10 h-1"

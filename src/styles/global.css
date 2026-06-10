@@ -1,3 +1,5 @@
+@import "@fontsource-variable/inter";
+@import "@fontsource-variable/space-grotesk";
 @import "tailwindcss";
 
 @theme {
@@ -5,8 +7,8 @@
   --color-ink-soft: #94a3b8;
   --color-accent: #60a5fa;
   --color-accent-soft: #3b82f6;
-  --color-surface: #0b1120;
-  --color-surface-soft: #111a30;
+  --color-surface: #070b16;
+  --color-surface-soft: #0d1526;
   --color-border: #1e293b;
   --color-chart-1: #60a5fa;
   --color-chart-2: #a78bfa;
@@ -14,8 +16,10 @@
   --color-chart-4: #fbbf24;
   --color-chart-5: #fb7185;
   --color-chart-6: #22d3ee;
-  --font-sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto,
-    "Helvetica Neue", Arial, sans-serif;
+  --font-sans: "Inter Variable", ui-sans-serif, system-ui, -apple-system,
+    "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-display: "Space Grotesk Variable", "Inter Variable", ui-sans-serif,
+    system-ui, sans-serif;
 }
 
 html {
@@ -29,7 +33,7 @@ body {
   background:
     radial-gradient(
       ellipse 60% 40% at 50% -10%,
-      rgba(96, 165, 250, 0.18),
+      rgba(96, 165, 250, 0.16),
       transparent 60%
     ),
     var(--color-surface);
@@ -38,9 +42,94 @@ body {
   text-rendering: optimizeLegibility;
 }
 
+h1,
+h2,
+h3,
+h4,
+.font-display {
+  font-family: var(--font-display);
+}
+
 ::selection {
   background: var(--color-accent-soft);
   color: white;
+}
+
+/* Subtle blueprint grid used behind the hero */
+.bg-grid {
+  background-image:
+    linear-gradient(to right, rgba(148, 163, 184, 0.07) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(148, 163, 184, 0.07) 1px, transparent 1px);
+  background-size: 44px 44px;
+  mask-image: radial-gradient(ellipse 80% 70% at 50% 30%, black 30%, transparent 75%);
+  -webkit-mask-image: radial-gradient(
+    ellipse 80% 70% at 50% 30%,
+    black 30%,
+    transparent 75%
+  );
+}
+
+.text-gradient {
+  background: linear-gradient(
+    100deg,
+    var(--color-ink) 20%,
+    var(--color-chart-1) 55%,
+    var(--color-chart-2) 90%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Section eyebrow label */
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+}
+
+.eyebrow::before {
+  content: "";
+  width: 1.75rem;
+  height: 1px;
+  background: linear-gradient(to right, var(--color-accent), transparent);
+}
+
+/* Card hover: lift + accent glow driven by --card-accent */
+.card-lift {
+  transition:
+    transform 0.3s cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+.card-lift:hover,
+.card-lift:focus-visible {
+  transform: translateY(-4px);
+  box-shadow:
+    0 14px 40px -12px rgba(0, 0, 0, 0.6),
+    0 0 0 1px color-mix(in srgb, var(--card-accent, var(--color-accent)) 35%, transparent),
+    0 8px 32px -8px color-mix(in srgb, var(--card-accent, var(--color-accent)) 25%, transparent);
+}
+
+/* Scroll-reveal: elements start hidden, .revealed transitions them in */
+[data-reveal] {
+  opacity: 0;
+  transform: translateY(18px);
+  transition:
+    opacity 0.65s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.65s cubic-bezier(0.22, 1, 0.36, 1);
+  transition-delay: var(--reveal-delay, 0s);
+}
+
+[data-reveal].revealed {
+  opacity: 1;
+  transform: none;
 }
 
 @keyframes bar-rise {
@@ -67,5 +156,14 @@ body {
 @media (prefers-reduced-motion: reduce) {
   .chart-bar {
     animation: none !important;
+  }
+  [data-reveal] {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+  .card-lift,
+  .card-lift:hover {
+    transform: none;
   }
 }
